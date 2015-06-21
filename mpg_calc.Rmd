@@ -1,0 +1,50 @@
+---
+title: "mpg predication"
+author: "sclan"
+date: "June 21, 2015"
+output: html_document
+---
+#Developing Data Products project - MPG prediction calculator
+This shiny application uses the well-known mtcars dataset included in the data library in R as the basis for fitting the input values with linear regression model to predict the car fuel economy.
+
+Required libraries
+```{r}
+library(shiny)
+library(RCurl)
+library(caret)
+```
+
+On the server side (server.R), we first load the mtcars dataset
+
+```{r}
+data(mtcars)
+```
+
+Then perform the linear model fitting (glm)
+```{r}
+modFit <- train(mpg ~ cyl + hp + wt + am + gear, method="glm", data=mtcars)
+```
+
+followed by the shiny server function:
+
+shinyServer(
+  function(input, output) { 
+    output$prediction <- renderPrint ({
+      cyl = input$cyl
+      hp = input$hp
+      wt = input$wt
+      am = input$am
+      gear = input$gear
+      predict(modFit,data.frame(cyl, hp, wt, am, gear))})
+  }
+)
+
+On the user interface side, a popular sidebar panel plus the main panel layout is used. The left side panel is used to create selectable menus for collecting user input values for the number of cylinders, the horsepower, weight, transmission type, and the number of gears. The main panel provides the information for the prediction output in mpg (miles per gallon).
+
+More detailed information about the mtcards dataset can be found at
+https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html
+
+Codes for this markdown document in Rmd and html format, as well as the source code files can be found at
+https://github.com/sclan/DevelopingProducts
+
+
