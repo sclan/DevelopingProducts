@@ -1,5 +1,4 @@
 library(shiny)
-library(RCurl)
 library(caret)
 data(mtcars)
 modFit <- train(mpg ~ cyl + hp + wt + am + gear, method="glm", data=mtcars)

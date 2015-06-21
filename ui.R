@@ -16,7 +16,11 @@ shinyUI (
     mainPanel (
       h3 ('Results of prediction'),
       h4 ('Your Vehicle\'s Predicted MPG:'),
-      textOutput("prediction")
+      textOutput("prediction"),
+      h6 ('More detailed information about the mtcards dataset can be found at
+https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html'),
+      h6 ('Codes for this markdown document in Rmd and html format, as well as the source code files can be found at
+https://github.com/sclan/DevelopingProducts')
       )
     )
 
